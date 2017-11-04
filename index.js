@@ -66,7 +66,6 @@ var Storage = multer.diskStorage({
          //return res.end("/index.html");
          return res.redirect('http://139.59.225.252/');
      });
-
  });
 
 app.listen(port);
