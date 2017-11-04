@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carousel - simplest version</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script>
+
+var downloadLocations = [];
+var timeline;
+var gDescriptionData;
+var currentDescription = "";
+
+  function beforeDOMisLoaded () {
+    console.log("-- Dont care about html loading. We want to fetch data from API --");
+
+    fetch("http://localhost:8080/pictorials")
+      .then((resp) => resp.json()) // Transform the data into json
+      .then(function(data) {
+
+        gDescriptionData = data;
+        for (var imageIndex = 0; imageIndex < data.length; imageIndex++) {
+          downloadLocations.push("../Images/"+gDescriptionData[imageIndex].fileName);
+        }
+
+        console.log("------ download locations -----");
+        console.log(downloadLocations);
+
+
+        /* start */
+
+
+
+        function is_cached(src) {
+            var image = new Image();
+            image.src = src;
+            return image.complete;
+        }
+
+        var LOADER_ID = "loader";
+        var BODY_CLASS = "body";
+
+        timeline = new TimeLiner();
+
+        for (var index = 0; index < downloadLocations.length; index++) {
+            console.log("inserting " + downloadLocations[index]);
+            timeline.insertTimeFrame(downloadLocations[index]);
+        }
+
+        timeline.setCurrentToFirstFrame();
+
+        carousel = (function(){
+
+          var next = document.querySelector('.next');
+          var prev = document.querySelector('.prev');
+
+          function imageExists(url, callback) {
+            var img = new Image();
+            img.onload = function() { callback(true); };
+            img.onerror = function() { callback(false); };
+            img.src = url;
+          }
+
+          function loadImage() {
+            var img = new Image(), url = timeline.currentFrame().data;
+            img.src = url;
+            console.log("loadImage - image source--");
+            console.log(img.src);
+
+            img.onload = function() {
+                var body = document.getElementsByTagName(BODY_CLASS)[0];
+                body.style.backgroundImage = "url(" + url + ")";
+
+                setTimeout( // remove loader
+                function() {
+                    var loader = document.getElementById(LOADER_ID);
+                    if(loader)
+                      body.removeChild(loader);
+                  }, 200);
+                };
+          }
+
+          function navigate(direction) {
+            currentDescription = "";
+
+            if (direction > 0) timeline.nextFrame();
+            else if (direction < 0) timeline.previousFrame();
+            else timeline.setCurrentToFirstFrame();
+
+            if (!is_cached(timeline.currentFrame().data)) {
+              // put in loader
+              var loader = document.createElement("div");
+              loader.id = LOADER_ID;
+              document.getElementsByTagName(BODY_CLASS)[0].appendChild(loader);
+            }
+
+            loadImage();
+          }
+
+          next.addEventListener('click', function(ev) {
+            console.log('NEXT!!');
+            navigate(1);
+          });
+
+          prev.addEventListener('click', function(ev) {
+            console.log("PREVIOUS!");
+            navigate(-1);
+          });
+
+          navigate(0); // we default it to the first frame
+        })();
+
+
+        /* END */
+      });
+  }
+
+
+  </script>
+</head>
+
+<body class="box" onload="beforeDOMisLoaded()">
+  <div class="ribbon" onclick="toggleImageDescription()"><span>about</span></div>
+
+
+  <div id ="imageDescription"></div>
+
+  <a href="#" class="button next"></a>
+  <a href="#" class="button prev"></a>
+
+  <script type="text/javascript" src="ListNode.js"></script>
+  <script type="text/javascript" src="TimeLiner.js"></script>
+  <script type="text/javascript" src="CircularList.js"></script>
+
+
+
+  <script>
+  var START_POINT = -200;
+  var END_POINT = 350;
+  var SPEED = 20;
+
+  var gPos = START_POINT; // start from 0 with every click of button
+  var visible = false;
+
+
+  function toggleImageDescription() {
+
+    console.log(timeline.currentFrame().data);
+
+    // get description from image name
+
+    console.log(gDescriptionData);
+
+    var toMatch = timeline.currentFrame().data;
+
+    if (currentDescription === "") {
+        console.log("PERFORMANCE HIT  !");
+        for (var i = 0; i < gDescriptionData.length; i++) {
+          var fileName = gDescriptionData[i].fileName;
+          if(toMatch.indexOf(fileName) !== -1) { // if fileName exist in toMatch
+              console.log("FOUND!!!!!");
+              currentDescription = gDescriptionData[i].description;
+              break;
+          }
+        }
+    }
+    // TODO: implement your custom dictionary
+
+    var elem = document.getElementById("imageDescription");
+    elem.innerHTML = currentDescription;
+    elem.style.top = START_POINT+"px";
+
+    // setInterval(function, milliseconds)
+    // Same as setTimeout(), but repeats the execution of the function continuously.
+
+    var id = setInterval(frame, 5); // calls frame function every 5 millisecond
+
+    function frame() {
+
+    if (visible === false) {
+      if (gPos >= END_POINT) {
+        clearInterval(id);
+        visible = true;
+      }
+      else {
+        gPos += SPEED; // add 1 to it! DAMN!!!
+        elem.style.top = gPos + 'px';
+      }
+    } else {
+      if (gPos > START_POINT) {
+        gPos -= SPEED; // add 1 to it! DAMN!!!
+        elem.style.top = gPos + 'px';
+      } else {
+        console.log("done!");
+        clearInterval(id);
+        visible = false;
+      }
+    }
+
+    } // frame
+  }
+  </script>
+
+</body>
+</html>
