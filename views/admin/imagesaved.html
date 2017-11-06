@@ -7,11 +7,10 @@
   <script>
 
       // USE THIS POST FUNCTION to CREATE
-      function post(path, httpVerb) {
+      function post(path, httpVerb, status, filename) {
 
-        var filename = <%= filename %>
-        var status = <%= status %>
-
+        console.log(path);
+        console.log(httpVerb);
         console.log(filename);
         console.log(status);
         /*
@@ -71,7 +70,10 @@
     <textarea id="descriptionPictorial"></textarea>
   </div>
 
-  <button onclick="post('http://128.199.83.231/pictorials', 'POST')">create</button>
+  <button onclick="post('http://128.199.83.231/pictorials',
+                                                    'POST',
+                                                    '<%= status %>',
+                                                    '<%= filename %>')">create</button>
 
 
   </body>
