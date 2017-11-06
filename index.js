@@ -37,6 +37,8 @@ routes(app);
 console.log("index.js -  routed routes");
 
 
+var gFileName;
+
 // image storage
 var Storage = multer.diskStorage({
      destination: function(req, file, callback) {
@@ -45,6 +47,9 @@ var Storage = multer.diskStorage({
      filename: function(req, file, callback) {
         console.log("---The file name is---" + file.fieldname);
         console.log("---The original name is---" + file.originalname);
+
+        gFileName = file.originalname;
+
         callback(null, file.originalname);
      }
  });
@@ -62,10 +67,10 @@ var Storage = multer.diskStorage({
             console.log(err);
              return res.end("Something went wrong!");
          }
+         console.log("-- storage file name-- ");
+         console.log(gFileName);
          console.log("res object back to html page");
-         //return res.end("SUCCESSFUL");
-         //return res.end("/index.html");
-         return res.redirect('http://139.59.225.252/imagesaved.html');
+         return res.redirect('http://139.59.225.252/admin/imagesaved.html');
      });
  });
 
