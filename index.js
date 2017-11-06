@@ -63,8 +63,9 @@ var Storage = multer.diskStorage({
              return res.end("Something went wrong!");
          }
          console.log("res object back to html page");
+         return res.end("SUCCESSFUL");
          //return res.end("/index.html");
-         return res.redirect('http://139.59.225.252/');
+         //return res.redirect('http://139.59.225.252/imagesaved.html');
      });
  });
 
