@@ -63,14 +63,16 @@ var Storage = multer.diskStorage({
 
      upload(req, res, function(err) {
          if (err) {
-            console.log("----error uploading file----");
+            console.log(" ---- error uploading file ---- ");
             console.log(err);
              return res.end("Something went wrong!");
          }
          console.log("-- storage file name-- ");
          console.log(gFileName);
          console.log("res object back to html page");
-         return res.redirect('http://139.59.225.252/admin/imagesaved.html');
+         res.render( 'http://139.59.225.252/admin/imagesaved.html', { status: success } );
+
+         //return res.redirect('http://139.59.225.252/admin/imagesaved.html');
      });
  });
 
