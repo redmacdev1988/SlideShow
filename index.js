@@ -4,6 +4,7 @@ var port = process.env.PORT || 8080
 
 var multer = require('multer');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
 
 var app = express()
 
@@ -11,6 +12,10 @@ var app = express()
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname + '/views');
+
+var path = require('path')
+app.use(express.static(path.join(__dirname, 'views')));
+
 
 console.log("index.js -  Connect your database by adding a url to the mongoose instance connection");
 
