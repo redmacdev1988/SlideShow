@@ -10,12 +10,10 @@ module.exports = function(app) {
 
 ///Users/rickytsao/Desktop/RICKYTSAO-web/api/routes/Images
   app.route('/').get(function(req, res){
-    console.log(aboutMessage);
-    res.json(aboutMessage);
-
-    /*
     //console.log(aboutMessage);
     //res.json(aboutMessage);
+
+
 
     // return list if images here
 
@@ -43,7 +41,6 @@ module.exports = function(app) {
         res.send(imageNames);
     });
 
-    */
   })
 
   app.route('/pictorials')
