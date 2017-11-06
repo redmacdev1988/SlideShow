@@ -2,7 +2,7 @@
 
 
 var mongoose = require('mongoose'),
-  Pictorial = mongoose.model('Pictorial');
+Pictorial = mongoose.model('Pictorial');
 
 
 // list all pictorials
@@ -33,7 +33,10 @@ exports.create_a_pictorial = function(req, res) {
     console.log("--- pictorialController.js - saved successfully --");
     console.log(JSON.stringify(new_pictorial, null, 2));
 
-    res.json(pictorial);
+    //res.json(pictorial);
+    res.render( 'admin/pictorial-created.html', { status: "successfully uploaded"} );
+
+
   });
 };
 
