@@ -9,6 +9,8 @@ var app = express()
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+app.set('views', __dirname + '/views');
 
 console.log("index.js -  Connect your database by adding a url to the mongoose instance connection");
 
