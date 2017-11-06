@@ -17,7 +17,7 @@ var currentDescription = "";
   function beforeDOMisLoaded () {
     console.log("-- Dont care about html loading. We want to fetch data from API --");
 
-    fetch("http://localhost:8080/pictorials")
+    fetch("http://128.199.83.231/pictorials")
       .then((resp) => resp.json()) // Transform the data into json
       .then(function(data) {
 
@@ -28,11 +28,6 @@ var currentDescription = "";
 
         console.log("------ download locations -----");
         console.log(downloadLocations);
-
-
-        /* start */
-
-
 
         function is_cached(src) {
             var image = new Image();
