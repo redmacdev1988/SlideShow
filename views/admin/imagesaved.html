@@ -13,14 +13,8 @@
         console.log(httpVerb);
         console.log(filename);
         console.log(status);
-        /*
-        var namePictorial = document.getElementById('namePictorial').value;
-        var fileNamePictorial = document.getElementById('fileNamePictorial').value;
-        var descriptionPictorial = document.getElementById('descriptionPictorial').value;
 
-        console.log(namePictorial);
-        console.log(fileNamePictorial);
-        console.log(descriptionPictorial);
+        var fileNameNoExt = filename.substr(0, filename.indexOf('.'));
 
         httpVerb = httpVerb || "post"; // Set method to post by default if not specified.
         console.log(httpVerb);
@@ -33,24 +27,25 @@
         var hiddenFieldNamePictorial = document.createElement("input");
         hiddenFieldNamePictorial.setAttribute("type", "hidden");
         hiddenFieldNamePictorial.setAttribute("name", "name");
-        hiddenFieldNamePictorial.setAttribute("value", namePictorial);
+        hiddenFieldNamePictorial.setAttribute("value", fileNameNoExt);
         form.appendChild(hiddenFieldNamePictorial);
 
         var hiddenFieldFileNamePictorial = document.createElement("input");
         hiddenFieldFileNamePictorial.setAttribute("type", "hidden");
         hiddenFieldFileNamePictorial.setAttribute("name", "fileName");
-        hiddenFieldFileNamePictorial.setAttribute("value", fileNamePictorial);
+        hiddenFieldFileNamePictorial.setAttribute("value", filename);
         form.appendChild(hiddenFieldFileNamePictorial);
 
+        var descriptionText = document.getElementById("descriptionPictorial").value;
         var hiddenFieldDescriptionPictorial = document.createElement("input");
         hiddenFieldDescriptionPictorial.setAttribute("type", "hidden");
         hiddenFieldDescriptionPictorial.setAttribute("name", "description");
-        hiddenFieldDescriptionPictorial.setAttribute("value", descriptionPictorial);
+        hiddenFieldDescriptionPictorial.setAttribute("value", descriptionText);
         form.appendChild(hiddenFieldDescriptionPictorial);
 
         document.body.appendChild(form);
         form.submit();
-        */
+
       }
 
 
