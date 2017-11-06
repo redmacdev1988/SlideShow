@@ -17,7 +17,7 @@ var path = require('path')
 
 // serves up files in these two folders
 app.use(express.static(path.join(__dirname, 'views')));
-app.use(express.static(path.join(__dirname, 'Images')));
+app.use(express.static('Images'));
 
 
 console.log("index.js -  Connect your database by adding a url to the mongoose instance connection");
