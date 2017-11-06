@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var app = express()
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
 console.log("index.js -  Connect your database by adding a url to the mongoose instance connection");
 
 var mongoose = require('mongoose')
@@ -15,7 +18,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-       next();
+    next();
 });
 
 // model
@@ -57,7 +60,7 @@ var Storage = multer.diskStorage({
  // multier takes the requst object
  var upload = multer({ storage: Storage }).array("imgUploader", 1); //Field name and max count
 
- console.log("index.js -  file upload ready at http://localhost:8080/api/Upload for POST requests");
+ console.log("index.js -  file upload ready for POST requests");
 
  app.post("/api/Upload", function(req, res) {
 
@@ -70,7 +73,7 @@ var Storage = multer.diskStorage({
          console.log("-- storage file name-- ");
          console.log(gFileName);
          console.log("res object back to html page");
-         res.render( 'http://139.59.225.252/admin/imagesaved.html', { status: "successfully uploaded",
+         res.render( 'admin/imagesaved.html', { status: "successfully uploaded",
                                                                         filename: gFileName } );
 
          //return res.redirect('http://139.59.225.252/admin/imagesaved.html');
