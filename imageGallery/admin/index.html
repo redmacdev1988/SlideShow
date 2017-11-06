@@ -14,7 +14,7 @@
 
     <form id="frmUploader"
           enctype="multipart/form-data"
-          action="http://localhost:8080/api/Upload/"
+          action="http://128.199.83.231/api/Upload/"
           method="post">
 
       <input type="file" name="imgUploader" multiple />
@@ -45,7 +45,7 @@
     <textarea id="descriptionPictorial"></textarea>
   </div>
 
-  <button onclick="post('http://localhost:8080/pictorials', 'POST')">create</button>
+  <button onclick="post('http://128.199.83.231/pictorials', 'POST')">create</button>
 
   </section>
 
@@ -58,10 +58,10 @@
         var formData = new FormData();
         formData.append('imgUploader', image);
 
-        fetch('http://localhost:8080/api/Upload', {
+        fetch('http://128.199.83.231/api/Upload', {
             method:'POST',
             headers: new Headers(),
-            body: JSON.stringify(formData),
+            body: formData,
             mode: 'no-cors'
         }).then(function(response){
           console.log("response is");
