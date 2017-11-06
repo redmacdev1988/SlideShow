@@ -70,7 +70,8 @@ var Storage = multer.diskStorage({
          console.log("-- storage file name-- ");
          console.log(gFileName);
          console.log("res object back to html page");
-         res.render( 'http://139.59.225.252/admin/imagesaved.html', { status: success } );
+         res.render( 'http://139.59.225.252/admin/imagesaved.html', { status: "successfully uploaded",
+                                                                        filename: gFileName } );
 
          //return res.redirect('http://139.59.225.252/admin/imagesaved.html');
      });
