@@ -2,6 +2,7 @@
 
 var LOADER_ID = "loader";
 var BODY_CLASS = "body";
+var START_POINT = -200;
 
 function is_cached(src) {
     var image = new Image();
@@ -44,40 +45,54 @@ function navigate(direction, timeline) {
 }
 
 
-function beforeDOMisLoaded (downloadLocations, timeline, descriptionArray) {
+function setupHashTable(hashTable, dataArray) {
+  for(var index = 0; index < dataArray.length; index++) {
+      console.log("inserting into hash table: " + dataArray[index].name);
+      hashTable.insert(dataArray[index].name, dataArray[index]);
+  }
+}
+
+function setupDownloadLocations(locations, data) {
+    for (var imageIndex = 0; imageIndex < data.length; imageIndex++) {
+        var imageFileLocation = "http://128.199.83.231/"+data[imageIndex].fileName;
+        locations.push(imageFileLocation);
+    }
+}
+
+function setupTimeline(timeline, downloadLocations) {
+  for (var index = 0; index < downloadLocations.length; index++) {
+      timeline.insertTimeFrame(downloadLocations[index]);
+  }
+}
+
+function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
 
   fetch("http://128.199.83.231/pictorials")
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
 
-      descriptionArray.length = 0;
-      for(var index = 0; index < data.length; index++) {
-        descriptionArray[index] = data[index];
-      }
-
-      for (var imageIndex = 0; imageIndex < data.length; imageIndex++) {
-        var imageFileLocation = "http://128.199.83.231/"+descriptionArray[imageIndex].fileName;
-        console.log(imageFileLocation);
-        downloadLocations.push(imageFileLocation);
-      }
-
-      console.log("------ download locations -----");
-      console.log(downloadLocations);
-
-      for (var index = 0; index < downloadLocations.length; index++) {
-          console.log("inserting " + downloadLocations[index]);
-          timeline.insertTimeFrame(downloadLocations[index]);
-      }
+      setupHashTable(descHashTable, data);
+      setupDownloadLocations(downloadLocations, data);
+      setupTimeline(timeline, downloadLocations);
 
       timeline.setCurrentToFirstFrame();
-
+      
       var carousel = (function(){
-
         var next = document.querySelector('.next');
         var prev = document.querySelector('.prev');
 
         next.addEventListener('click', function(ev) {
-          console.log('NEXT!!');
+          var imgDesc = document.getElementById("imageDescription");
+          if (imgDesc.style.top != "") {
+            // if its > 0, bring it up to -200px
+            var top = imgDesc.style.top.replace(/[^0-9\-]/g, '');
+            var topNum = Number(top);
+
+            // if it is visible
+            if (topNum > 0) {
+                imgDesc.style.top = START_POINT+"px"; // let's make it invisible
+            }
+          }
           navigate(1, timeline);
         });
 

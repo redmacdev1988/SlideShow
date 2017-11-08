@@ -10,11 +10,14 @@
   <script type="text/javascript" src="ListNode.js"></script>
   <script type="text/javascript" src="TimeLiner.js"></script>
   <script type="text/javascript" src="CircularList.js"></script>
+  <script type="text/javascript" src="hashtable.js"></script>
 
   <script>
     var gDownloadLocations = [];
     var gTimeline = new TimeLiner();
-    var gDescriptionData = [];
+
+    //var gDescriptionData = [];
+    var gDescriptionDataHashTable = HashTable.CreateObject(31);
 
   </script>
 
@@ -23,8 +26,8 @@
 
 </head>
 
-<body class="box" onload="beforeDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionData)">
-  <div class="ribbon" onclick="toggleImageDescription(gTimeline, gDescriptionData, 'imageDescription')"><span>about</span></div>
+<body class="box" onload="beforeDOMisLoaded(gDownloadLocations, gTimeline, gDescriptionDataHashTable)">
+  <div class="ribbon" onclick="toggleImageDescription(gTimeline, gDescriptionDataHashTable, 'imageDescription')"><span>about</span></div>
   <div id ="imageDescription"></div>
   <a href="#" class="button next"></a>
   <a href="#" class="button prev"></a>

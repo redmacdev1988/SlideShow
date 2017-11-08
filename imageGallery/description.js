@@ -7,46 +7,48 @@ var SPEED = 20;
 var gPos = START_POINT; // start from 0 with every click of button
 var visible = false;
 
-function toggleImageDescription(timeline, descriptionArray, descriptionElementID) {
-    console.log("descriptionArray is: ");
-    console.log(descriptionArray);
+function toggleImageDescription(timeline, descriptionHashTable, descriptionElementID) {
 
-    var toMatch = timeline.currentFrame().data;
-    var matched;
-    console.log("PERFORMANCE HIT  !");
-    for (var i = 0; i < descriptionArray.length; i++) {
-      var fileName = descriptionArray[i].fileName;
-      if(toMatch.indexOf(fileName) !== -1) { // if fileName exist in toMatch
-          console.log("FOUND!!!!!");
-          matched = descriptionArray[i].description;
-          break;
-      }
+    // http://345.34.35.345/haha.jpg
+    var url = timeline.currentFrame().data;
+    var urlArray = url.split('/');
+    var fileNameWithExt = urlArray[urlArray.length-1]; // beijing.jpg
+    var fileName = fileNameWithExt.substr(0, fileNameWithExt.indexOf('.')); // beijing
+    var found = descriptionHashTable.access(fileName); // see if "beijing" exists
+    var elem = document.getElementById(descriptionElementID);
+    elem.innerHTML = (found) ? found.description : "";
+
+    var top = elem.style.top;
+    if (top != "") {
+        var topPx = top.replace(/[^0-9\-]/g, '');
+        gPos = Number(topPx);
+        visible = (gPos < 0) ? false : true;
+    } else {
+      elem.style.top = START_POINT+"px";
+      gPos = START_POINT;
+      visible = false;
     }
 
-    var elem = document.getElementById(descriptionElementID);
-    elem.innerHTML = matched;
-    elem.style.top = START_POINT+"px";
     var id = setInterval(animateDescriptionFunc, 5); // calls frame function every 5 millisecond
-
     function animateDescriptionFunc() {
-      if (visible === false) {
-        if (gPos >= END_POINT) {
-          clearInterval(id);
-          visible = true;
-        }
-        else {
-          gPos += SPEED;
-          elem.style.top = gPos + 'px';
-        }
-      } else {
-        if (gPos > START_POINT) {
-          gPos -= SPEED;
-          elem.style.top = gPos + 'px';
+        if (visible === false) {
+          if (gPos >= END_POINT) {
+            clearInterval(id);
+            visible = true;
+          }
+          else {
+            gPos += SPEED;
+            elem.style.top = gPos + 'px';
+          }
         } else {
-          clearInterval(id);
-          visible = false;
+          if (gPos > START_POINT) {
+            gPos -= SPEED;
+            elem.style.top = gPos + 'px';
+          } else {
+            clearInterval(id);
+            visible = false;
+          }
         }
-      }
     }
 
 }
