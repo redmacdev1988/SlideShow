@@ -76,7 +76,7 @@ function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
       setupTimeline(timeline, downloadLocations);
 
       timeline.setCurrentToFirstFrame();
-      
+
       var carousel = (function(){
         var next = document.querySelector('.next');
         var prev = document.querySelector('.prev');
