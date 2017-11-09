@@ -65,6 +65,20 @@ function setupTimeline(timeline, downloadLocations) {
   }
 }
 
+function defaultDescriptionPosition(descElemID) {
+  var imgDesc = document.getElementById(descElemID);
+  if (imgDesc.style.top != "") {
+    // if its > 0, bring it up to -200px
+    var top = imgDesc.style.top.replace(/[^0-9\-]/g, '');
+    var topNum = Number(top);
+
+    // if it is visible
+    if (topNum > 0) {
+        imgDesc.style.top = START_POINT+"px"; // let's make it invisible
+    }
+  }
+}
+
 function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
 
   fetch("http://128.199.83.231/pictorials")
@@ -82,22 +96,12 @@ function beforeDOMisLoaded (downloadLocations, timeline, descHashTable) {
         var prev = document.querySelector('.prev');
 
         next.addEventListener('click', function(ev) {
-          var imgDesc = document.getElementById("imageDescription");
-          if (imgDesc.style.top != "") {
-            // if its > 0, bring it up to -200px
-            var top = imgDesc.style.top.replace(/[^0-9\-]/g, '');
-            var topNum = Number(top);
-
-            // if it is visible
-            if (topNum > 0) {
-                imgDesc.style.top = START_POINT+"px"; // let's make it invisible
-            }
-          }
+          defaultDescriptionPosition("imageDescription");
           navigate(1, timeline);
         });
 
         prev.addEventListener('click', function(ev) {
-          console.log("PREVIOUS!");
+          defaultDescriptionPosition("imageDescription");
           navigate(-1, timeline);
         });
 
