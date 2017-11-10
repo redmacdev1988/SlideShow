@@ -60,9 +60,9 @@ exports.update_a_pictorial = function(req, res) {
 
   console.log(req.body);
 
-/*
+
   Pictorial.findOneAndUpdate( {name: req.params.pictorialId},
-                              { $set: { description: req.params.descriptionData } },
+                              { $set: { description: req.body.description } },
                               {new: true},
                               function(err, pictorial) {
 
@@ -70,9 +70,9 @@ exports.update_a_pictorial = function(req, res) {
                                   console.log(err);
                                   res.send(err);
                                 }
-                                res.json(pictorial);
+                                res.send(pictorial);
                               });
-                              */
+
 };
 
 
