@@ -81,8 +81,9 @@ exports.delete_a_pictorial = function(req, res) {
   Pictorial.remove({
     _id: req.body.pictorialId
   }, function(err, pictorial) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Pictorial successfully deleted' });
+    if (err) {
+      res.end(err);
+    }
+    res.send({removed: req.body.pictorialId});
   });
 };
