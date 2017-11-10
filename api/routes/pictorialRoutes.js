@@ -48,7 +48,7 @@ module.exports = function(app) {
     .post(pictorialList.create_a_pictorial);
 
 
-  app.route('/pictorials/:pictorialId/description')
+  app.route('/pictorials/:pictorialId')
     .get(pictorialList.read_a_pictorial)
     .post(pictorialList.update_a_pictorial)
     .delete(pictorialList.delete_a_pictorial);

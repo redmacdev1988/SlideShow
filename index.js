@@ -73,7 +73,7 @@ var Storage = multer.diskStorage({
  console.log("index.js -  file upload ready for POST requests");
 
  app.post("/api/Upload", function(req, res) {
-    console.log(req);
+    console.log(req.body);
      upload(req, res, function(err) {
          if (err) {
             console.log(" ---- error uploading file ---- ");
