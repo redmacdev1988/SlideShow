@@ -75,11 +75,10 @@ exports.update_a_pictorial = function(req, res) {
 
 exports.delete_a_pictorial = function(req, res) {
   console.log("pictorialController.js - delete_a_pictorial");
-  console.log(req.params);
-  console.log(req.body);
+  console.log(req.body.pictorialId);
 
   Pictorial.remove({
-    _id: req.body.pictorialId
+    name: req.body.pictorialId
   }, function(err, pictorial) {
     if (err) {
       res.end(err);
