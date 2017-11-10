@@ -60,26 +60,26 @@ exports.update_a_pictorial = function(req, res) {
 
   console.log(req.body);
 
-
   Pictorial.findOneAndUpdate( {name: req.params.pictorialId},
                               { $set: { description: req.body.description } },
                               {new: true},
                               function(err, pictorial) {
-
                                 if (err) {
                                   console.log(err);
                                   res.send(err);
                                 }
                                 res.send(pictorial);
                               });
-
 };
 
 
 exports.delete_a_pictorial = function(req, res) {
+  console.log("pictorialController.js - delete_a_pictorial");
+  console.log(req.params);
+  console.log(req.body);
 
   Pictorial.remove({
-    _id: req.params.pictorialId
+    _id: req.body.pictorialId
   }, function(err, pictorial) {
     if (err)
       res.send(err);
