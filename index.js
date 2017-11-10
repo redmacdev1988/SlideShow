@@ -42,7 +42,7 @@ mongoose.connect('mongodb://localhost/PictorialDB');
 
 // bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 // routes
 var routes = require('./api/routes/pictorialRoutes'); //importing route
