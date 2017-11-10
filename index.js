@@ -73,16 +73,13 @@ var Storage = multer.diskStorage({
  console.log("index.js -  file upload ready for POST requests");
 
  app.post("/api/Upload", function(req, res) {
-
+    console.log(req);
      upload(req, res, function(err) {
          if (err) {
             console.log(" ---- error uploading file ---- ");
             console.log(err);
              return res.end("Something went wrong!");
          }
-         console.log("-- storage file name-- ");
-         console.log(gFileName);
-         console.log("res object back to html page");
          res.render( 'admin/imagesaved.html', { status: "successfully uploaded",
                                                                         filename: gFileName } );
 
