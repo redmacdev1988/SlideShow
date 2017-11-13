@@ -40,8 +40,7 @@ module.exports = function(app) {
     .post(pictorialList.update_a_pictorial)
     .delete(pictorialList.delete_a_pictorial);
 
-//app.post("/api/Upload", function(req, res) {
   app.route("/api/Upload")
-    .post(pictorialList.upload_a_pictorial);
+    .put(pictorialList.upload_a_pictorial);
 
 };

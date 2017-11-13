@@ -82,7 +82,6 @@ exports.read_a_pictorial = function(req, res) {
 
 exports.update_a_pictorial = function(req, res) {
   console.log("--- update_a_pictorial ---");
-
   console.log(req.body);
 
   Pictorial.findOneAndUpdate( {name: req.params.pictorialId},
