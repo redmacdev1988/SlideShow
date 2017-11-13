@@ -35,7 +35,7 @@ exports.upload_a_pictorial = function(req, res) {
        res.render( 'admin/imagesaved.html', { status: "successfully uploaded",
                                                                       filename: gFileName } );
    });
-});
+};
 
 // list all pictorials
 
