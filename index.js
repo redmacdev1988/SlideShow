@@ -49,7 +49,7 @@ var routes = require('./api/routes/pictorialRoutes'); //importing route
 routes(app);
 console.log("index.js -  routed routes");
 
-
+/*
 var gFileName;
 
 // image storage
@@ -86,6 +86,7 @@ var Storage = multer.diskStorage({
          //return res.redirect('http://139.59.225.252/admin/imagesaved.html');
      });
  });
+*/
 
 app.listen(port);
 console.log(' pictorial list RESTful API server   on: ' + port);

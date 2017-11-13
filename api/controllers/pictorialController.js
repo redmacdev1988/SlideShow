@@ -1,9 +1,41 @@
 'use strict';
 
-
+var multer = require('multer');
 var mongoose = require('mongoose'),
 Pictorial = mongoose.model('Pictorial');
 
+var gFileName;
+
+// image storage
+var Storage = multer.diskStorage({
+     destination: function(req, file, callback) {
+         callback(null, "./Images");
+     },
+     filename: function(req, file, callback) {
+        console.log("---The file name is---" + file.fieldname);
+        console.log("---The original name is---" + file.originalname);
+
+        gFileName = file.originalname;
+        callback(null, file.originalname);
+     }
+ });
+
+
+// multier takes the requst object
+var upload = multer({ storage: Storage }).array("imgUploader", 1); //Field name and max count
+
+exports.upload_a_pictorial = function(req, res) {
+  console.log(req.body);
+   upload(req, res, function(err) {
+       if (err) {
+          console.log(" ---- error uploading file ---- ");
+          console.log(err);
+           return res.end("Something went wrong!");
+       }
+       res.render( 'admin/imagesaved.html', { status: "successfully uploaded",
+                                                                      filename: gFileName } );
+   });
+});
 
 // list all pictorials
 
@@ -13,8 +45,6 @@ exports.list_all_pictorials = function(req, res) {
   Pictorial.find({}, function(err, pictorials) {
     if (err)
       res.send(err);
-
-    console.log(JSON.stringify(pictorials, null, 2));
     res.json(pictorials);
   });
 };
@@ -29,14 +59,9 @@ exports.create_a_pictorial = function(req, res) {
   new_pictorial.save(function(err, pictorial) {
     if (err)
       res.send(err);
-
     console.log("--- pictorialController.js - saved successfully --");
     console.log(JSON.stringify(new_pictorial, null, 2));
-
-    //res.json(pictorial);
     res.render( 'admin/pictorial-created.html', { status: "successfully uploaded"} );
-
-
   });
 };
 
