@@ -9,26 +9,16 @@ module.exports = function(app) {
   var aboutMessage = "Welcome to SlideShow API 2017 by Ricky Tsao";
 
 
-  app.route('/').get(function(req, res){
-    //console.log(aboutMessage);
-    //res.json(aboutMessage);
-
-    console.log(__dirname); ///Users/rickytsao/Desktop/RICKYTSAO-web/api/routes
+  app.route('/')
+  .get(function(req, res){
     var directoryPath = path.join(__dirname, '/../../Images');
     fs.readdir(directoryPath, function (err, files) {
-        //handling error
-        if (err) {
-            return console.log('Unable to scan directory: ' + err);
-        }
-
+        if (err) { return console.log('Unable to scan directory: ' + err); }
         var imageNames = [];
-        files.forEach(function (file) {
-            imageNames.push(file);
-        });
+        files.forEach(function (file) { imageNames.push(file); });
         res.send(imageNames);
     });
-
-  })
+  });
 
   app.route('/pictorials')
     .get(pictorialList.list_all_pictorials)
