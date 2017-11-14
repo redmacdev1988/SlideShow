@@ -31,7 +31,7 @@ module.exports = function(app) {
     .delete(pictorialList.delete_a_pictorial);
 
   app.route("/api/Upload")
-    .get(pictorialList.upload_a_pictorial);
+    .get(pictorialList.upload_a_pictorial)
     .put(pictorialList.upload_a_pictorial);
 
 };
