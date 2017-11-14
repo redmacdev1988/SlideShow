@@ -25,12 +25,12 @@ var Storage = multer.diskStorage({
 var upload = multer({ storage: Storage }).array("imgUploader", 1); //Field name and max count
 
 exports.upload_a_pictorial = function(req, res) {
-  console.log(req.body);
-   upload(req, res, function(err) {
+    console.log("--- pictorialController.js - upload_a_pictorial");
+    upload(req, res, function(err) {
        if (err) {
           console.log(" ---- error uploading file ---- ");
           console.log(err);
-           return res.end("Something went wrong!");
+          return res.end("Something went wrong!");
        }
        res.render( 'admin/imagesaved.html', { status: "successfully uploaded",
                                                                       filename: gFileName } );
@@ -51,10 +51,10 @@ exports.list_all_pictorials = function(req, res) {
 
 
 // create a pictorial
-// where the req.body is an object with properties specified
-// in model.js
+
 
 exports.create_a_pictorial = function(req, res) {
+  console.log("--- pictorialController.js - create_a_pictorial ---");
   var new_pictorial = new Pictorial(req.body);
   new_pictorial.save(function(err, pictorial) {
     if (err)
