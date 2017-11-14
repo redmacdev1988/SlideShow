@@ -26,6 +26,7 @@ var upload = multer({ storage: Storage }).array("imgUploader", 1); //Field name 
 
 exports.upload_a_pictorial = function(req, res) {
     console.log("--- pictorialController.js - upload_a_pictorial");
+    /*
     upload(req, res, function(err) {
        if (err) {
           console.log(" ---- error uploading file ---- ");
@@ -35,6 +36,7 @@ exports.upload_a_pictorial = function(req, res) {
        res.render( 'admin/imagesaved.html', { status: "successfully uploaded",
                                                                       filename: gFileName } );
    });
+   */
 };
 
 // list all pictorials
