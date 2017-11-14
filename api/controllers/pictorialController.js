@@ -79,7 +79,6 @@ exports.read_a_pictorial = function(req, res) {
   });
 };
 
-// update data of a pictorial
 
 exports.update_a_pictorial = function(req, res) {
   console.log("--- update_a_pictorial ---");

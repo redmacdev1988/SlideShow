@@ -27,7 +27,7 @@ module.exports = function(app) {
     // todo change post to put
   app.route('/pictorials/:pictorialId')
     .get(pictorialList.read_a_pictorial)
-    .post(pictorialList.update_a_pictorial)
+    .put(pictorialList.update_a_pictorial)
     .delete(pictorialList.delete_a_pictorial);
 
   app.route("/api/Upload")
