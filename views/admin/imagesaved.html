@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carousel - admin section</title>
+  <title>Carousel - enter description</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+
   <script>
 
       // USE THIS POST FUNCTION to CREATE
@@ -54,19 +58,22 @@
 
   <body>
 
-  <h3>Insert description for your Pictorial</h3>
+    <div class="container">
+          <div class="jumbotron">
+            <h1>Insert description for your Pictorial</h1>
+          </div>
 
-  <div class="createImageRow">
-    <b>status: <li><%= status %></li></b>
-    <b>filename: <li><%= filename %></li></b>
-    <textarea id="descriptionPictorial"></textarea>
-  </div>
+        <div class="createImageRow">
+          <b>status: <li><%= status %></li></b>
+          <b>filename: <li><%= filename %></li></b>
+          <textarea id="descriptionPictorial"></textarea>
+        </div>
 
-  <button onclick="post('http://128.199.83.231/pictorials',
-                                                    'POST',
-                                                    '<%= status %>',
-                                                    '<%= filename %>')">create</button>
+        <button onclick="post('http://128.199.83.231/pictorials',
+                                                          'POST',
+                                                          '<%= status %>',
+                                                          '<%= filename %>')">create</button>
 
-
+    </div> <!-- container -->
   </body>
 </html>
