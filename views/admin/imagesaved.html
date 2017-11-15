@@ -64,8 +64,12 @@
           </div>
 
         <div class="createImageRow">
-          <b>status: <li><%= status %></li></b>
-          <b>filename: <li><%= filename %></li></b>
+            <div class="alert alert-info">
+              <strong>status:</strong> <%= status %>
+              <span class="alert-link">filename: <%= filename %></span>
+            </div>
+
+
           <textarea id="descriptionPictorial"></textarea>
         </div>
 
