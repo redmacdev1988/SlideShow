@@ -9,6 +9,7 @@ var gFileName;
 // image storage
 var Storage = multer.diskStorage({
      destination: function(req, file, callback) {
+
          callback(null, "./Images");
      },
      filename: function(req, file, callback) {
@@ -22,7 +23,7 @@ var Storage = multer.diskStorage({
 
 
 // multier takes the requst object
-var upload = multer({ storage: Storage }).array("imgUploader", 1); //Field name and max count
+var upload = multer({ storage: Storage }).array("imgUploader", 3); //Field name and max count
 
 exports.upload_a_pictorial = function(req, res) {
     console.log("--- pictorialController.js - upload_a_pictorial");

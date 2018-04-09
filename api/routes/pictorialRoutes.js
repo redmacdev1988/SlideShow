@@ -8,7 +8,6 @@ module.exports = function(app) {
   var pictorialList = require('../controllers/pictorialController');
   var aboutMessage = "Welcome to SlideShow API 2017 by Ricky Tsao";
 
-
   app.route('/')
   .get(function(req, res){
     var directoryPath = path.join(__dirname, '/../../Images');
